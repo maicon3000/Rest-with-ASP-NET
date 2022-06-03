@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace RestWithASPNET5.Controllers
 {
-    [ApiVersion("1")]
+    [ApiVersion("2")]
     [ApiController]
-    [Route("api/[controller]/v{version:apiVersion}")]
-    public class PersonController : ControllerBase
+    [Route("api/person/v{version:apiVersion}")]
+    public class PersonControllerV2 : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
         private IPersonService _personService;
-        public PersonController(ILogger<PersonController> logger, IPersonService personService)
+        public PersonControllerV2(ILogger<PersonController> logger, IPersonService personService)
         {
             _logger = logger;
             _personService = personService;
@@ -39,7 +39,7 @@ namespace RestWithASPNET5.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Person person)
         {
-            if(person == null) return BadRequest();
+            if (person == null || person.BirthDate == null) return BadRequest("Error: It is necessary to inform the BirthDate field");
             return Ok(_personService.Create(person));
         }
 
