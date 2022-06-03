@@ -34,8 +34,6 @@ namespace RestWithASPNET5.Controllers.Services.Implementations
             return people;
         }
 
-        
-
         public Person FindByID(long id)
         {
             return new Person
