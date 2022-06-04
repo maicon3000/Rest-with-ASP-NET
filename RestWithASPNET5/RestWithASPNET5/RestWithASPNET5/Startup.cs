@@ -11,17 +11,25 @@ using RestWithASPNET5.Controllers.Business.Implementations;
 using System;
 using RestWithASPNET5.Controllers.Repository;
 using RestWithASPNET5.Controllers.Repository.Implementations;
+using Serilog;
+using MySqlConnector;
+using System.Collections.Generic;
 
 namespace RestWithASPNET5
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
-        }
+            Environment = environment;
 
-        public IConfiguration Configuration { get; }
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -30,6 +38,11 @@ namespace RestWithASPNET5
 
             var connection = Configuration["MySQLConnection:MySQLConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 11))));
+
+            if (Environment.IsDevelopment())
+            {
+                MigrateDatabase(connection);
+            }
 
             // Versioning API
             services.AddApiVersioning();
@@ -64,6 +77,24 @@ namespace RestWithASPNET5
             {
                 endpoints.MapControllers();
             });
+        }
+        private void MigrateDatabase(string connection)
+        {
+            try
+            {
+                var evolveConnection = new MySqlConnection(connection);
+                var evolve = new Evolve.Evolve(evolveConnection, msg => Log.Information(msg))
+                {
+                    Locations = new List<string> { "db/migrations", "db/dataset" },
+                    IsEraseDisabled = true,
+                };
+                evolve.Migrate();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Database migration failed", ex);
+                throw;
+            }
         }
     }
 }
