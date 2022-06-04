@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RestWithASPNET5.Controllers.Services.Implementations
+namespace RestWithASPNET5.Controllers.Repository.Implementations
 {
-    public class PersonServiceImplementation : IPersonService
+    public class PersonRepositoryImplementation : IPersonRepository
     {
         private MySQLContext _context;
 
-        public PersonServiceImplementation(MySQLContext context)
+        public PersonRepositoryImplementation(MySQLContext context)
         {
             _context = context;
         }
@@ -42,7 +42,6 @@ namespace RestWithASPNET5.Controllers.Services.Implementations
         public Person Update(Person person)
         {
             if (!Exists(person.Id)) return new Person();
-
             var result = _context.People.SingleOrDefault(p => p.Id.Equals(person.Id));
             if (result != null)
             {
@@ -77,7 +76,7 @@ namespace RestWithASPNET5.Controllers.Services.Implementations
             }
         }
 
-        private bool Exists(long id)
+        public bool Exists(long id)
         {
             return _context.People.Any(p => p.Id.Equals(id));
         }
