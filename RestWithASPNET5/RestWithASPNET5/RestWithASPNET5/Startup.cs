@@ -50,6 +50,8 @@ namespace RestWithASPNET5
             // Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
+            services.AddScoped<IBooksBusiness, BooksBusinessImplementation>();
+            services.AddScoped<IBooksRepository, BooksRepositoryImplementation>();
 
             services.AddSwaggerGen(c =>
             {
@@ -78,7 +80,7 @@ namespace RestWithASPNET5
                 endpoints.MapControllers();
             });
         }
-        private void MigrateDatabase(string connection)
+        private static void MigrateDatabase(string connection)
         {
             try
             {
