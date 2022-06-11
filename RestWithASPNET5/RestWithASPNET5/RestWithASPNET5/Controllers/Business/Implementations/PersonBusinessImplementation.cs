@@ -9,9 +9,9 @@ namespace RestWithASPNET5.Controllers.Business.Implementations
 {
     public class PersonBusinessImplementation : IPersonBusiness
     {
-        private readonly IPersonRepository _repository;
+        private readonly IRepository<Person> _repository;
 
-        public PersonBusinessImplementation(IPersonRepository reprository)
+        public PersonBusinessImplementation(IRepository<Person> reprository)
         {
             _repository = reprository;
         }

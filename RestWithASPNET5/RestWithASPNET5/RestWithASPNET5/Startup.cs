@@ -10,7 +10,6 @@ using RestWithASPNET5.Controllers.Business;
 using RestWithASPNET5.Controllers.Business.Implementations;
 using System;
 using RestWithASPNET5.Controllers.Repository;
-using RestWithASPNET5.Controllers.Repository.Implementations;
 using Serilog;
 using MySqlConnector;
 using System.Collections.Generic;
@@ -50,7 +49,6 @@ namespace RestWithASPNET5
 
             // Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
-            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
             services.AddScoped<IBooksBusiness, BooksBusinessImplementation>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
