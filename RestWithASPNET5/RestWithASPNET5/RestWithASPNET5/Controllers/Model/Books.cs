@@ -1,14 +1,12 @@
-﻿using System;
+﻿using RestWithASPNET5.Controllers.Model.Base;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestWithASPNET5.Controllers.Model
 {
     [Table("books")]
-    public class Books
+    public class Books : BaseEntity
     {
-        [Column("id")]
-        public long Id { get; set; }
-
         [Column("author")]
         public string Author { get; set; }
 

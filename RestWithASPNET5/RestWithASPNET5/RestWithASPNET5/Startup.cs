@@ -14,6 +14,7 @@ using RestWithASPNET5.Controllers.Repository.Implementations;
 using Serilog;
 using MySqlConnector;
 using System.Collections.Generic;
+using RestWithASPNET5.Controllers.Repository.Generic;
 
 namespace RestWithASPNET5
 {
@@ -51,7 +52,7 @@ namespace RestWithASPNET5
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
             services.AddScoped<IBooksBusiness, BooksBusinessImplementation>();
-            services.AddScoped<IBooksRepository, BooksRepositoryImplementation>();
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
             services.AddSwaggerGen(c =>
             {
