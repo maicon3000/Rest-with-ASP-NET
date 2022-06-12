@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestWithASPNET5.Controllers.Model;
 using RestWithASPNET5.Controllers.Business;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using RestWithASPNET5.Data.VO;
 
 namespace RestWithASPNET5.Controllers
 {
@@ -37,14 +33,14 @@ namespace RestWithASPNET5.Controllers
         }
         
         [HttpPost]
-        public IActionResult Post([FromBody] Books book)
+        public IActionResult Post([FromBody] BooksVO book)
         {
             if(book == null) return BadRequest();
             return Ok(_booksBusiness.Create(book));
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Books book)
+        public IActionResult Put([FromBody] BooksVO book)
         {
             if (book == null) return NotFound();
             return Ok(_booksBusiness.Update(book));
