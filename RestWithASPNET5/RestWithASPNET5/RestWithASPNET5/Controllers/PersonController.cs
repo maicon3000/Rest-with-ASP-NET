@@ -3,10 +3,11 @@ using Microsoft.Extensions.Logging;
 using RestWithASPNET5.Controllers.Business;
 using RestWithASPNET5.Data.VO;
 using RestWithASPNET5.Hypermedia.Filters;
+using System.Collections.Generic;
 
 namespace RestWithASPNET5.Controllers
 {
-    [ApiVersion("1")]
+    [ApiVersion("1.0")]
     [ApiController]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase
@@ -19,14 +20,22 @@ namespace RestWithASPNET5.Controllers
             _personBusiness = personBusiness;
         }
 
-        [HttpGet]
+        [HttpGet, MapToApiVersion("1.0")]
+        [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             return Ok(_personBusiness.FindAll());
         }
         
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), MapToApiVersion("1.0")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(long id)
         {
@@ -35,7 +44,10 @@ namespace RestWithASPNET5.Controllers
             return Ok(person);
         }
         
-        [HttpPost]
+        [HttpPost, MapToApiVersion("1.0")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody] PersonVO person)
         {
@@ -43,7 +55,10 @@ namespace RestWithASPNET5.Controllers
             return Ok(_personBusiness.Create(person));
         }
 
-        [HttpPut]
+        [HttpPut, MapToApiVersion("1.0")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody] PersonVO person)
         {
@@ -51,7 +66,10 @@ namespace RestWithASPNET5.Controllers
             return Ok(_personBusiness.Update(person));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), MapToApiVersion("1.0")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Delete(long id)
         {
             _personBusiness.Delete(id);

@@ -6,7 +6,7 @@ using RestWithASPNET5.Hypermedia.Filters;
 
 namespace RestWithASPNET5.Controllers
 {
-    [ApiVersion("1")]
+    [ApiVersion("1.0")]
     [ApiController]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class BooksController : ControllerBase
