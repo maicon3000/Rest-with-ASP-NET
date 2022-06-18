@@ -15,6 +15,8 @@ using MySqlConnector;
 using System.Collections.Generic;
 using RestWithASPNET5.Controllers.Repository.Generic;
 using System.Net.Http.Headers;
+using RestWithASPNET5.Hypermedia.Filters;
+using RestWithASPNET5.Hypermedia.Enricher;
 
 namespace RestWithASPNET5
 {
@@ -54,6 +56,12 @@ namespace RestWithASPNET5
             })
             .AddXmlSerializerFormatters();
 
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new BookEnricher());
+
+            services.AddSingleton(filterOptions);
+
             // Versioning API
             services.AddApiVersioning();
 
@@ -87,6 +95,7 @@ namespace RestWithASPNET5
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/v{version=apiVersion}/{id?}");
             });
         }
         private static void MigrateDatabase(string connection)

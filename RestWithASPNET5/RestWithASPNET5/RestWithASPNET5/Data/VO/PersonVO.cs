@@ -1,8 +1,11 @@
-﻿using System;
+﻿using RestWithASPNET5.Hypermedia;
+using RestWithASPNET5.Hypermedia.Abstract;
+using System;
+using System.Collections.Generic;
 
 namespace RestWithASPNET5.Data.VO
 {
-    public class PersonVO
+    public class PersonVO : ISupportsHyperMedia
     {
         public long Id { get; set; }
 
@@ -15,5 +18,7 @@ namespace RestWithASPNET5.Data.VO
         public string Gender { get; set; }
 
         public DateTime? BirthDate { get; set; }
+
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }
