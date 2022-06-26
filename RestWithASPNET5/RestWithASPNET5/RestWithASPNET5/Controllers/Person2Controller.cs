@@ -9,7 +9,7 @@ namespace RestWithASPNET5.Controllers
 {
     [ApiVersion("2.0")]
     [ApiController]
-    [Route("api/[controller]/v{version:apiVersion}")]
+    [Route("api/person/v{version:apiVersion}")]
     public class Person2Controller : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
