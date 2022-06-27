@@ -1,10 +1,10 @@
 ﻿using RestWithASPNET5.Controllers.Repository;
 using RestWithASPNET5.Controllers.Model;
-using RestWithASPNET5.Data.VO;
 using System.Collections.Generic;
-using RestWithASPNET5.Data.Converter.Implementations;
+using RestWithASPNET5.V2.Data.Converter.Implementations;
+using RestWithASPNET5.V2.Data.VO;
 
-namespace RestWithASPNET5.Controllers.Business.Implementations
+namespace RestWithASPNET5.V2.Controllers.Business.Implementations
 {
     public class PersonBusinessImplementation : IPersonBusiness
     {

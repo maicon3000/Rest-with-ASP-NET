@@ -5,7 +5,7 @@ using RestWithASPNET5.Data.VO;
 using RestWithASPNET5.Hypermedia.Filters;
 using System.Collections.Generic;
 
-namespace RestWithASPNET5.Controllers
+namespace RestWithASPNET5.V1.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]

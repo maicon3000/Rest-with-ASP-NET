@@ -1,10 +1,10 @@
 ﻿using RestWithASPNET5.Controllers.Model;
 using RestWithASPNET5.Data.Converter.Contract;
-using RestWithASPNET5.Data.VO;
+using RestWithASPNET5.V2.Data.VO;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RestWithASPNET5.Data.Converter.Implementations
+namespace RestWithASPNET5.V2.Data.Converter.Implementations
 {
     public class PersonConverter : IParser<PersonVO, Person>, IParser<Person, PersonVO>
     {
@@ -17,7 +17,8 @@ namespace RestWithASPNET5.Data.Converter.Implementations
                 FirstName = origin.FirstName,
                 LastName = origin.LastName,
                 Address = origin.Address,
-                Gender = origin.Gender
+                Gender = origin.Gender,
+                BirthDate = origin.BirthDate
             };
         }
 
@@ -30,7 +31,8 @@ namespace RestWithASPNET5.Data.Converter.Implementations
                 FirstName = origin.FirstName,
                 LastName = origin.LastName,
                 Address = origin.Address,
-                Gender = origin.Gender
+                Gender = origin.Gender,
+                BirthDate = origin.BirthDate
             };
         }
 

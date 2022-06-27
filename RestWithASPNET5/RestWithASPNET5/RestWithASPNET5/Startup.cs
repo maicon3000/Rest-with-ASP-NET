@@ -4,20 +4,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using RestWithASPNET5.Controllers.Model.Context;
-using RestWithASPNET5.Controllers.Business;
-using RestWithASPNET5.Controllers.Business.Implementations;
 using System;
-using RestWithASPNET5.Controllers.Repository;
 using Serilog;
 using MySqlConnector;
 using System.Collections.Generic;
-using RestWithASPNET5.Controllers.Repository.Generic;
 using System.Net.Http.Headers;
 using RestWithASPNET5.Hypermedia.Filters;
-using RestWithASPNET5.Hypermedia.Enricher;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.Mvc;
+using APIVersion;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.Extensions.Options;
+using RestWithASPNET5.Controllers.Model.Context;
+using RestWithASPNET5.Hypermedia.Enricher;
+using RestWithASPNET5.Controllers.Business.Implementations;
+using RestWithASPNET5.Controllers.Repository;
+using RestWithASPNET5.Controllers.Repository.Generic;
+using RestWithASPNET5.V2.Controllers.Business;
+using RestWithASPNET5.Controllers.Business;
 
 namespace RestWithASPNET5
 {
@@ -64,9 +69,38 @@ namespace RestWithASPNET5
             services.AddSingleton(filterOptions);
 
             // Versioning API
-            services.AddApiVersioning();
+            services.AddApiVersioning(options =>
+            {
+                // Retorna os headers "api-supported-versions" e "api-deprecated-versions"
+                // indicando versões suportadas pela API e o que está como deprecated
+                options.ReportApiVersions = true;
 
-            services.AddSwaggerGen(c =>
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(2, 1);
+            });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                // Agrupar por número de versão
+                // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+                // note: the specified format code will format the version as "'v'major[.minor][-status]"
+                options.GroupNameFormat = "'v'VVV";
+
+                // Necessário para o correto funcionamento das rotas
+                // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+                // can also be used to control the format of the API version in route templates
+                options.SubstituteApiVersionInUrl = true;
+            });
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
+            services.AddSwaggerGen(options =>
+            {
+                // add a custom operation filter which sets default values
+                options.OperationFilter<SwaggerDefaultValues>();
+            });
+
+            /*services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1.0",
                     new OpenApiInfo
@@ -80,16 +114,17 @@ namespace RestWithASPNET5
                             Url = new Uri("https://github.com/maicon3000")
                         }
                     });
-            });
+            });*/
 
             // Dependency Injection
-            services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
+            services.AddScoped<Controllers.Business.IPersonBusiness, PersonBusinessImplementation>();
+            services.AddScoped<V2.Controllers.Business.IPersonBusiness, V2.Controllers.Business.Implementations.PersonBusinessImplementation>();
             services.AddScoped<IBooksBusiness, BooksBusinessImplementation>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -102,9 +137,19 @@ namespace RestWithASPNET5
 
             app.UseSwagger();
 
-            app.UseSwaggerUI(c => {
+            /*app.UseSwaggerUI(c => {
                 c.SwaggerEndpoint("/swagger/v1.0/swagger.json", 
                     "v1.0");
+            });*/
+
+            app.UseSwaggerUI(options =>
+            {
+                // Geração de um endpoint do Swagger para cada versão descoberta
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                        description.GroupName.ToUpperInvariant());
+                }
             });
 
             var option = new RewriteOptions();
@@ -116,7 +161,6 @@ namespace RestWithASPNET5
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/v{version=apiVersion}/{id?}");
             });
         }
         private static void MigrateDatabase(string connection)

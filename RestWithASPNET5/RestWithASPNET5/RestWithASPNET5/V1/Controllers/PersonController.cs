@@ -5,22 +5,22 @@ using RestWithASPNET5.Data.VO;
 using RestWithASPNET5.Hypermedia.Filters;
 using System.Collections.Generic;
 
-namespace RestWithASPNET5.Controllers
+namespace RestWithASPNET5.V1.Controllers
 {
-    [ApiVersion("2.0")]
+    [ApiVersion("1.0")]
     [ApiController]
-    [Route("api/person/v{version:apiVersion}")]
-    public class Person2Controller : ControllerBase
+    [Route("api/[controller]/v{version:apiVersion}")]
+    public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
         private IPersonBusiness _personBusiness;
-        public Person2Controller(ILogger<PersonController> logger, IPersonBusiness personService)
+        public PersonController(ILogger<PersonController> logger, IPersonBusiness personBusiness)
         {
             _logger = logger;
-            _personBusiness = personService;
+            _personBusiness = personBusiness;
         }
 
-        [HttpGet]
+        [HttpGet, MapToApiVersion("1.0")]
         [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -31,7 +31,7 @@ namespace RestWithASPNET5.Controllers
             return Ok(_personBusiness.FindAll());
         }
         
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), MapToApiVersion("1.0")]
         [ProducesResponseType((200), Type = typeof(PersonVO))]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -43,30 +43,33 @@ namespace RestWithASPNET5.Controllers
             if(person == null) return NotFound();
             return Ok(person);
         }
-
-        [HttpPost]
+        
+        [HttpPost, MapToApiVersion("1.0")]
         [ProducesResponseType((200), Type = typeof(PersonVO))]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody] PersonVO person)
         {
-            if (person == null || person.BirthDate == null) return BadRequest("Error: It is necessary to inform the BirthDate field");
+            if(person == null) return BadRequest();
             return Ok(_personBusiness.Create(person));
         }
 
-        [HttpPut]
+        [HttpPut, MapToApiVersion("1.0")]
         [ProducesResponseType((200), Type = typeof(PersonVO))]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody] PersonVO person)
         {
-            if (person == null) return BadRequest();
+            if (person == null) return NotFound();
             return Ok(_personBusiness.Update(person));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), MapToApiVersion("1.0")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Delete(long id)
         {
             _personBusiness.Delete(id);
