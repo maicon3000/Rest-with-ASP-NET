@@ -51,7 +51,7 @@ namespace RestWithASPNET5.V1.Controllers
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody] PersonVO person)
         {
-            if(person == null) return BadRequest();
+            if (person == null) return BadRequest();
             return Ok(_personBusiness.Create(person));
         }
 
@@ -67,9 +67,6 @@ namespace RestWithASPNET5.V1.Controllers
         }
 
         [HttpDelete("{id}"), MapToApiVersion("1.0")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
         public IActionResult Delete(long id)
         {
             _personBusiness.Delete(id);

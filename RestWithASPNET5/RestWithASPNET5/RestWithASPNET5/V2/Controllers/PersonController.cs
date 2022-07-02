@@ -62,7 +62,7 @@ namespace RestWithASPNET5.V2.Controllers
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody] PersonVO person)
         {
-            if (person == null) return BadRequest();
+            if (person == null) return NotFound();
             return Ok(_personBusiness.Update(person));
         }
 

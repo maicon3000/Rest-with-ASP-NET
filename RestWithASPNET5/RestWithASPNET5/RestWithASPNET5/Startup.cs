@@ -160,7 +160,7 @@ namespace RestWithASPNET5
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/v{version=apiVersion}/{id?}");
             });
         }
         private static void MigrateDatabase(string connection)

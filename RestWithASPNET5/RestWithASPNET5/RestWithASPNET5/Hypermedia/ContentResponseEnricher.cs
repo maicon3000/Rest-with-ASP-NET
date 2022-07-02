@@ -15,6 +15,7 @@ namespace RestWithASPNET5.Hypermedia
         {
 
         }
+
         public bool CanEnrich(Type contentType)
         {
             return contentType == typeof(T) || contentType == typeof(List<T>);
