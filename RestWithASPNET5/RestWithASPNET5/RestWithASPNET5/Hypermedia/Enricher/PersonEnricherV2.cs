@@ -3,11 +3,10 @@ using RestWithASPNET5.V2.Data.VO;
 using RestWithASPNET5.Hypermedia.Constants;
 using System.Text;
 using System.Threading.Tasks;
-using RestWithASPNET5.Hypermedia;
 
-namespace RestWithASPNET5.V2.Hypermedia.Enricher
+namespace RestWithASPNET5.Hypermedia.Enricher
 {
-    public class PersonEnricher : ContentResponseEnricher<PersonVO>
+    public class PersonEnricherV2 : ContentResponseEnricher<PersonVO>
     {
         private readonly object _lock = new object();
 
@@ -51,7 +50,7 @@ namespace RestWithASPNET5.V2.Hypermedia.Enricher
         {
             lock (_lock)
             {
-                var url = new { Controller = path, id = id };
+                var url = new { controller = path, id = id };
                 return new StringBuilder(urlHelper.Link("DefaultApi", url)).Replace("%2F", "/").ToString();
             }
         }

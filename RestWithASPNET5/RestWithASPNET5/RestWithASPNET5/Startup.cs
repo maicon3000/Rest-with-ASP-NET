@@ -21,7 +21,6 @@ using RestWithASPNET5.Hypermedia.Enricher;
 using RestWithASPNET5.Controllers.Business.Implementations;
 using RestWithASPNET5.Controllers.Repository;
 using RestWithASPNET5.Controllers.Repository.Generic;
-using RestWithASPNET5.V2.Controllers.Business;
 using RestWithASPNET5.Controllers.Business;
 
 namespace RestWithASPNET5
@@ -65,6 +64,8 @@ namespace RestWithASPNET5
             var filterOptions = new HyperMediaFilterOptions();
             filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
             filterOptions.ContentResponseEnricherList.Add(new BookEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new PersonEnricherV2());
+            
 
             services.AddSingleton(filterOptions);
 

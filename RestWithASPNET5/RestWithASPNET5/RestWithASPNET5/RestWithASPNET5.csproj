@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Business\Repository\" />
+    <Folder Include="V2\Hypermedia\Enricher\" />
   </ItemGroup>
 
 </Project>
