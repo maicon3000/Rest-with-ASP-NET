@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace RestWithASPNET5.V1.Controllers
 {
-    [ApiVersion("1.0")]
+    [ApiVersion("1.0", Deprecated = true)]
     [ApiController]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase

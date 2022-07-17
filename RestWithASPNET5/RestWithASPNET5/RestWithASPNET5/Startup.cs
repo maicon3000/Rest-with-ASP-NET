@@ -101,22 +101,6 @@ namespace RestWithASPNET5
                 options.OperationFilter<SwaggerDefaultValues>();
             });
 
-            /*services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1.0",
-                    new OpenApiInfo
-                    {
-                        Title = "REST API's From 0 to Azure with ASP.NET Core 5 and Docker",
-                        Version = "v1.0",
-                        Description = "API RESTful developed in course 'REST API's From 0 to Azure with ASP.NET Core 5 and Docker'",
-                        Contact = new OpenApiContact
-                        {
-                            Name = "Maicon Moraes",
-                            Url = new Uri("https://github.com/maicon3000")
-                        }
-                    });
-            });*/
-
             // Dependency Injection
             services.AddScoped<Controllers.Business.IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<V2.Controllers.Business.IPersonBusiness, V2.Controllers.Business.Implementations.PersonBusinessImplementation>();
@@ -137,11 +121,6 @@ namespace RestWithASPNET5
             app.UseRouting();
 
             app.UseSwagger();
-
-            /*app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", 
-                    "v1.0");
-            });*/
 
             app.UseSwaggerUI(options =>
             {
