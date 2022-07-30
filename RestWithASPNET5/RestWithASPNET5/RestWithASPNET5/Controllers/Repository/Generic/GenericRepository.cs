@@ -64,6 +64,7 @@ namespace RestWithASPNET5.Controllers.Repository.Generic
                 return null;
             }
         }
+
         public void Delete(long id)
         {
             var result = dataset.SingleOrDefault(p => p.Id.Equals(id));
