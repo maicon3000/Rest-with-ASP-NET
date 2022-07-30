@@ -8,5 +8,6 @@ namespace RestWithASPNET5.Controllers.Model.Context
 
         public DbSet<Person> People { get; set; }
         public DbSet<Books> Books { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
