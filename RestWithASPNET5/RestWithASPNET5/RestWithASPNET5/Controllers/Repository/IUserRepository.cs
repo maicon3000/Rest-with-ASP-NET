@@ -6,5 +6,7 @@ namespace RestWithASPNET5.Controllers.Repository
     public interface IUserRepository
     {
         User ValidationsCredentials(UserVO user);
+
+        User RefreshUserInfo(User user);
     }
 }
