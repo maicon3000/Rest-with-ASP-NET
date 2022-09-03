@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace RestWithASPNET5.Services.Implementations
 {
-    public class ITokenService : ITokenInterface
+    public class TokenService : ITokenService
     {
         private TokenConfiguration _configuration;
 
-        public ITokenService(TokenConfiguration configuration)
+        public TokenService(TokenConfiguration configuration)
         {
             _configuration = configuration;
         }

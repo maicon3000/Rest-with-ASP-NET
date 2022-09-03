@@ -1,4 +1,4 @@
-﻿namespace RestWithASPNET5.Controllers.Repository
+﻿namespace RestWithASPNET5.Data.VO
 {
     public class UserVO
     {
