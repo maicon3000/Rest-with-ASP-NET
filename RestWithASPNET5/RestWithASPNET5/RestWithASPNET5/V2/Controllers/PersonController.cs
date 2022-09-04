@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithASPNET5.Hypermedia.Filters;
 using RestWithASPNET5.V2.Controllers.Business;
@@ -9,6 +10,7 @@ namespace RestWithASPNET5.V2.Controllers
 {
     [ApiVersion("2.0")]
     [ApiController]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase
     {

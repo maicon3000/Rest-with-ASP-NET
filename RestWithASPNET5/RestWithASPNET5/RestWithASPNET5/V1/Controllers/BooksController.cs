@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithASPNET5.Controllers.Business;
 using RestWithASPNET5.Data.VO;
@@ -9,6 +10,7 @@ namespace RestWithASPNET5.V1.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class BooksController : ControllerBase
     {
