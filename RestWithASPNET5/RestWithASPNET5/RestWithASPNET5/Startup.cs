@@ -59,11 +59,11 @@ namespace RestWithASPNET5
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(Options =>
+            .AddJwtBearer(options =>
             {
-                Options.TokenValidationParameters = new TokenValidationParameters
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
@@ -152,6 +152,7 @@ namespace RestWithASPNET5
             services.AddScoped<Controllers.Business.IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<V2.Controllers.Business.IPersonBusiness, V2.Controllers.Business.Implementations.PersonBusinessImplementation>();
             services.AddScoped<IBooksBusiness, BooksBusinessImplementation>();
+            services.AddScoped<ILoginBusiness, LoginBusinessImplementation>();
 
             services.AddTransient<ITokenService, TokenService>();
 

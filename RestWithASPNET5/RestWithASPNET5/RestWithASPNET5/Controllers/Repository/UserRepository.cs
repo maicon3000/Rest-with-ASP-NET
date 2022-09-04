@@ -17,7 +17,7 @@ namespace RestWithASPNET5.Controllers.Repository
             _context = context;
         }
 
-        public User ValidationsCredentials(UserVO user)
+        public User ValidateCredentials(UserVO user)
         {
             var pass = ComputeHash(user.Password, new SHA256CryptoServiceProvider());
             return _context.Users.FirstOrDefault(u => (u.UserName == user.UserName) && (u.Password == pass));

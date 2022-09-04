@@ -26,7 +26,7 @@ namespace RestWithASPNET5.Controllers.Business.Implementations
 
         public TokenVO ValidateCredentials(UserVO userCredentials)
         {
-            var user = _repository.ValidationsCredentials(userCredentials);
+            var user = _repository.ValidateCredentials(userCredentials);
             if (user == null) return null;
             var claims = new List<Claim>
             {
@@ -38,7 +38,7 @@ namespace RestWithASPNET5.Controllers.Business.Implementations
             var refreshToken = _tokenService.GenerateRefreshToken();
 
             user.RefreshToken = refreshToken;
-            user.RefreshTokenExpireTime = DateTime.Now.AddDays(_configuration.DaysToExpiry);
+            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(_configuration.DaysToExpiry);
 
             _repository.RefreshUserInfo(user);
 
