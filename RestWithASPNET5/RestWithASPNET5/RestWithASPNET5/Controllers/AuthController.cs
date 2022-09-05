@@ -17,7 +17,7 @@ namespace RestWithASPNET5.Controllers
         }
 
         [HttpPost]
-        [Route("singin")]
+        [Route("signin")]
         public IActionResult Signin([FromBody] UserVO user)
         {
             if (user == null) return BadRequest("Invalid client request");
