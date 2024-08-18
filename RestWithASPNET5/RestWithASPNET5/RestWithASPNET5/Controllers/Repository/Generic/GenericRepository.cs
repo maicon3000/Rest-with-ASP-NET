@@ -52,7 +52,7 @@ namespace RestWithASPNET5.Controllers.Repository.Generic
                 {
                     _context.Entry(result).CurrentValues.SetValues(item);
                     _context.SaveChanges();
-                    return item;
+                    return result;
                 }   
                 catch (Exception)
                 {

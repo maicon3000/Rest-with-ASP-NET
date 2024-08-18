@@ -55,11 +55,9 @@ namespace RestWithASPNET5.Services.Implementations
                 ValidateLifetime = false
             };
             var tokenHandler = new JwtSecurityTokenHandler();
-            SecurityToken securityToken;
 
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParamenters, out securityToken);
-            var jwtSecurityToken = securityToken as JwtSecurityToken;
-            if (jwtSecurityToken == null ||
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParamenters, out SecurityToken securityToken);
+            if (securityToken is not JwtSecurityToken jwtSecurityToken ||
                 !jwtSecurityToken.Header.Alg.Equals(
                 SecurityAlgorithms.HmacSha256,
                 StringComparison.InvariantCulture))

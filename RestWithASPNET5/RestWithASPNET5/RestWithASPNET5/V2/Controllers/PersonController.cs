@@ -14,7 +14,7 @@ namespace RestWithASPNET5.V2.Controllers
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase
     {
-        private readonly ILogger<PersonController> _logger;
+        private ILogger<PersonController> _logger;
         private IPersonBusiness _personBusiness;
         public PersonController(ILogger<PersonController> logger, IPersonBusiness personBusiness)
         {

@@ -7,6 +7,10 @@ namespace RestWithASPNET5.Controllers.Repository
     {
         User ValidateCredentials(UserVO user);
 
+        User ValidateCredentials(string userName);
+
+        bool RevokeToken(string userName);
+
         User RefreshUserInfo(User user);
     }
 }

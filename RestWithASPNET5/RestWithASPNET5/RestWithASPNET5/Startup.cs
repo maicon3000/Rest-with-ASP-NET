@@ -89,6 +89,7 @@ namespace RestWithASPNET5
                 .AllowAnyHeader();
             }));
 
+            services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllers();
 
             var connection = Configuration["MySQLConnection:MySQLConnectionString"];
