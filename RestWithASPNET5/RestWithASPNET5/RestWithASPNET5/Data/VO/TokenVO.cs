@@ -2,6 +2,8 @@
 {
     public class TokenVO
     {
+        public TokenVO() { }
+
         public TokenVO(bool authenticated, string created, string expirated, string accessToken, string refreshToken)
         {
             Authenticated = authenticated;
@@ -12,9 +14,13 @@
         }
 
         public bool Authenticated { get; set; }
+
         public string Created { get; set; }
+
         public string Expirated { get; set; }
+
         public string AccessToken { get; set; }
+
         public string RefreshToken { get; set; }
     }
 }

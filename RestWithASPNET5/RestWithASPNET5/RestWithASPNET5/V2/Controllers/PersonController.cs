@@ -32,7 +32,18 @@ namespace RestWithASPNET5.V2.Controllers
         {
             return Ok(_personBusiness.FindAll());
         }
-        
+
+        [HttpGet("{sortDirection}/{pageSize}/{page}"), MapToApiVersion("2.0")]
+        [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Get([FromQuery] string name, string sortDirection, int pageSize, int page)
+        {
+            return Ok(_personBusiness.FindWithPagedSearch(name, sortDirection, pageSize, page));
+        }
+
         [HttpGet("{id}"), MapToApiVersion("2.0")]
         [ProducesResponseType((200), Type = typeof(PersonVO))]
         [ProducesResponseType(204)]
@@ -66,6 +77,18 @@ namespace RestWithASPNET5.V2.Controllers
         {
             if (person == null) return NotFound();
             return Ok(_personBusiness.Update(person));
+        }
+
+        [HttpPatch("{id}"), MapToApiVersion("2.0")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Patch(long id)
+        {
+            var person = _personBusiness.Disable(id);
+            return Ok(person);
         }
 
         [HttpDelete("{id}"), MapToApiVersion("2.0")]

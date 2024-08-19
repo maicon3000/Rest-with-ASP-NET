@@ -1,10 +1,10 @@
-INSERT INTO `person` (`id`, `address`, `first_name`, `gender`, `last_name`, `birth_date`) VALUES
-	(1, 'Rio de Janeiro, Brasil', 'Maicon', 'Male', 'Moraes', '1991-01-14'),
-	(2, 'Mesquita, Rio de Janeiro, Brasil', 'João', 'Male', 'Moraes', '2008-02-05'),
-	(3, 'Mesquita, Rio de Janeiro, Brasil', 'Suselane', 'Female', 'Jorge', NULL),
-	(4, 'Mesquita, Rio de Janeiro, Brasil', 'Juliane', 'Female', 'Moraes', NULL),
-	(5, 'Mesquita, Rio de Janeiro, Brasil', 'Crislaine', 'Female', 'Moraes', NULL),
-	(6, 'Mesquita, Rio de Janeiro, Brasil', 'Lucas', 'Male', 'Moraes', NULL),
-	(7, 'Mesquita, Rio de Janeiro, Brasil', 'Isabel', 'Female', 'Moraes', NULL),
-	(8, 'Mesquita, Rio de Janeiro, Brasil', 'Ester', 'Female', 'Moraes', '2009-03-14'),
-	(9, 'Rio de Janeiro, Brasil', 'Valentina', 'Female', 'Moraes', '2015-06-16');
+INSERT INTO `person` (`address`, `first_name`, `gender`, `last_name`, `birth_date`) VALUES
+	('Mesquita, Rio de Janeiro, Brasil', 'Fernando', 'Male', 'Stuart', '1997-03-10'),
+	('Mesquita, Rio de Janeiro, Brasil', 'João', 'Male', 'Silva', '2001-09-09'),
+	('Mesquita, Rio de Janeiro, Brasil', 'Mariane', 'Female', 'Luisa', '1981-11-10'),
+	('Mesquita, Rio de Janeiro, Brasil', 'Julia', 'Female', 'Martins', '1978-12-05'),
+	('Mesquita, Rio de Janeiro, Brasil', 'Tania', 'Female', 'Fernandes', '1985-03-31'),
+	('Mesquita, Rio de Janeiro, Brasil', 'Luiz', 'Male', 'Otavio', '1957-09-20'),
+	('Mesquita, Rio de Janeiro, Brasil', 'Ingrid', 'Female', 'Barbosa', '1990-05-19'),
+	('Mesquita, Rio de Janeiro, Brasil', 'Kelly', 'Female', 'Ferreira', '2009-03-14'),
+	('Mesquita, Rio de Janeiro, Brasil', 'Aline', 'Female', 'Moraes', '2015-06-16');

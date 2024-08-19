@@ -45,7 +45,20 @@ namespace RestWithASPNET5.V1.Controllers
             if(person == null) return NotFound();
             return Ok(person);
         }
-        
+
+        [HttpGet("findPersonByName"), MapToApiVersion("1.0")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Get([FromQuery] string firstName, [FromQuery] string lastName)
+        {
+            var person = _personBusiness.FindByName(firstName, lastName);
+            if (person == null) return NotFound();
+            return Ok(person);
+        }
+
         [HttpPost, MapToApiVersion("1.0")]
         [ProducesResponseType((200), Type = typeof(PersonVO))]
         [ProducesResponseType(400)]
@@ -66,6 +79,18 @@ namespace RestWithASPNET5.V1.Controllers
         {
             if (person == null) return NotFound();
             return Ok(_personBusiness.Update(person));
+        }
+
+        [HttpPatch("{id}"), MapToApiVersion("1.0")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Patch(long id)
+        {
+            var person = _personBusiness.Disable(id);
+            return Ok(person);
         }
 
         [HttpDelete("{id}"), MapToApiVersion("1.0")]

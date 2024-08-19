@@ -19,6 +19,9 @@ namespace RestWithASPNET5.Controllers.Model
         [Column("gender")]
         public string Gender { get; set; }
 
+        [Column("enabled")]
+        public bool Enabled { get; set; }
+
         [Column("birth_date")]
         public DateTime? BirthDate { get; set; }
     }
