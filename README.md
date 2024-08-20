@@ -1,4 +1,4 @@
-# Rest with ASP NET5
+# Rest with ASP NET
 Learning Rest and Restful API with:
 - ASP NET 5;
 - Swagger;
