@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Business\Repository\" />
+    <Folder Include="UploadDir\" />
   </ItemGroup>
 
 </Project>
