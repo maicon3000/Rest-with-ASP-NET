@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RestWithASPNET5.Controllers.Business
 {
-    public interface IFileBussiness
+    public interface IFileBusiness
     {
         public byte[] GetFile(string filename);
         public Task<FileDetailVO> SaveFileToDisk(IFormFile file);
