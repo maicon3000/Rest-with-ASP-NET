@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RestWithASPNET5.Controllers.Business.Implementations
 {
-    public class FileBusiness : IFileBusiness
+    public class FileBusinessImplementation : IFileBusiness
     {
         private readonly string _basePath;
         private readonly IHttpContextAccessor _context;
@@ -17,7 +17,7 @@ namespace RestWithASPNET5.Controllers.Business.Implementations
         private readonly string _uploadDir = "\\UploadDir\\";
         private readonly string _apiUrlTemplate = "/api/file/v{0}/";
 
-        public FileBusiness(IHttpContextAccessor context)
+        public FileBusinessImplementation(IHttpContextAccessor context)
         {
             _context = context;
             _basePath = Directory.GetCurrentDirectory() + _uploadDir;
